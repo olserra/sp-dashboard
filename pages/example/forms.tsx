@@ -100,13 +100,13 @@ function Forms() {
       <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label>
           <span>Invalid input</span>
-          <input className="mt-1" valid={false} placeholder="Jane Doe" />
+          <input className="mt-1" placeholder="Jane Doe" />
           <HelperText valid={false}>Your password is too short.</HelperText>
         </Label>
 
         <Label className="mt-4">
           <span>Valid input</span>
-          <input className="mt-1" valid={true} placeholder="Jane Doe" />
+          <input className="mt-1" placeholder="Jane Doe" />
           <HelperText valid={true}>Your password is strong.</HelperText>
         </Label>
 
