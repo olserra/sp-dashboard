@@ -37,31 +37,34 @@ function CrateAccount() {
               </h1>
               <Label>
                 <span>Email</span>
-                <input
+                <Input
                   className="mt-1"
                   type="email"
                   placeholder="john@doe.com"
+                  crossOrigin={undefined}
                 />
               </Label>
               <Label className="mt-4">
                 <span>Password</span>
-                <input
+                <Input
                   className="mt-1"
                   placeholder="***************"
                   type="password"
+                  crossOrigin={undefined}
                 />
               </Label>
               <Label className="mt-4">
                 <span>Confirm password</span>
-                <input
+                <Input
                   className="mt-1"
                   placeholder="***************"
                   type="password"
+                  crossOrigin={undefined}
                 />
               </Label>
 
               <Label className="mt-6" check>
-                <input type="checkbox" />
+                <Input type="checkbox" crossOrigin={undefined} />
                 <span className="ml-2">
                   I agree to the{" "}
                   <span className="underline">privacy policy</span>
@@ -87,7 +90,7 @@ function CrateAccount() {
 
               <p className="mt-4">
                 <Link href="/example/login">
-                  <p className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline">
+                  <p className="text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline">
                     Already have an account? Login
                   </p>
                 </Link>

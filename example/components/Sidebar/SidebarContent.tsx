@@ -5,6 +5,8 @@ import { IIcon } from "icons";
 import SidebarSubmenu from "./SidebarSubmenu";
 import { Button } from "@roketid/windmill-react-ui";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import Logo from "../../../public/assets/img/logo-sp.png";
 
 function Icon({ icon, ...props }: IIcon) {
   // @ts-ignore
@@ -18,15 +20,12 @@ interface ISidebarContent {
 
 function SidebarContent({ linkClicked }: ISidebarContent) {
   const { pathname } = useRouter();
-  const appName = process.env.NEXT_PUBLIC_APP_NAME;
 
   return (
     <div className="text-gray-500 dark:text-gray-400">
       <Link href="/#" passHref>
-        <div className="ml-6 py-6">
-          <p className="text-lg font-bold text-gray-800 dark:text-gray-200">
-            {appName}
-          </p>
+        <div className="ml-6 py-4">
+          <Image src={Logo} width={120} height={120} alt={""} />
         </div>
       </Link>
       <ul>
@@ -50,7 +49,7 @@ function SidebarContent({ linkClicked }: ISidebarContent) {
                 >
                   {routeIsActive(pathname, route) && (
                     <span
-                      className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                      className="absolute inset-y-0 left-0 w-1 bg-teal-400 rounded-tr-lg rounded-br-lg"
                       aria-hidden="true"
                     ></span>
                   )}
@@ -68,7 +67,7 @@ function SidebarContent({ linkClicked }: ISidebarContent) {
         )}
       </ul>
       <div className="px-6 my-6">
-        <Button>
+        <Button className="bg-teal-400">
           Create account
           <span className="ml-2" aria-hidden="true">
             +

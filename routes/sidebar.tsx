@@ -35,27 +35,17 @@ const routes: IRoute[] = [
   {
     path: "/example/forms",
     icon: "FormsIcon",
-    name: "Forms",
+    name: "Create",
   },
   {
     path: "/example/cards",
     icon: "CardsIcon",
-    name: "Cards",
+    name: "Trainings",
   },
   {
     path: "/example/charts",
     icon: "ChartsIcon",
     name: "Charts",
-  },
-  {
-    path: "/example/buttons",
-    icon: "ButtonsIcon",
-    name: "Buttons",
-  },
-  {
-    path: "/example/modals",
-    icon: "ModalsIcon",
-    name: "Modals",
   },
   {
     path: "/example/tables",

@@ -38,7 +38,7 @@ function SidebarSubmenu({ route, linkClicked }: ISidebarSubmenu) {
     <li className="relative px-6 py-3" key={route.name}>
       {isDropdownMenuOpen && (
         <span
-          className="absolute h-12 inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+          className="absolute h-12 inset-y-0 left-0 w-1 bg-teal-400 rounded-tr-lg rounded-br-lg"
           aria-hidden="true"
         ></span>
       )}

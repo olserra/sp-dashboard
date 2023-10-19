@@ -37,19 +37,21 @@ function LoginPage() {
               </h1>
               <Label>
                 <span>Email</span>
-                <input
+                <Input
                   className="mt-1"
                   type="email"
                   placeholder="john@doe.com"
+                  crossOrigin={undefined}
                 />
               </Label>
 
               <Label className="mt-4">
                 <span>Password</span>
-                <input
+                <Input
                   className="mt-1"
                   type="password"
                   placeholder="***************"
+                  crossOrigin={undefined}
                 />
               </Label>
 
@@ -72,14 +74,14 @@ function LoginPage() {
 
               <p className="mt-4">
                 <Link href="/example/forgot-password">
-                  <p className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline">
+                  <p className="text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline">
                     Forgot your password?
                   </p>
                 </Link>
               </p>
               <p className="mt-1">
                 <Link href="/example/create-account">
-                  <p className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline">
+                  <p className="text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline">
                     Create account
                   </p>
                 </Link>
