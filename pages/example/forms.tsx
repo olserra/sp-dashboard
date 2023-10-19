@@ -1,12 +1,18 @@
-import React from 'react'
+import React from "react";
 
-import { Input, HelperText, Label, Select, Textarea } from '@roketid/windmill-react-ui'
-import CTA from 'example/components/CTA'
-import PageTitle from 'example/components/Typography/PageTitle'
-import SectionTitle from 'example/components/Typography/SectionTitle'
+import {
+  Input,
+  HelperText,
+  Label,
+  Select,
+  Textarea,
+} from "@roketid/windmill-react-ui";
+import CTA from "example/components/CTA";
+import PageTitle from "example/components/Typography/PageTitle";
+import SectionTitle from "example/components/Typography/SectionTitle";
 
-import Layout from 'example/containers/Layout'
-import { MailIcon } from 'icons'
+import Layout from "example/containers/Layout";
+import { MailIcon } from "icons";
 
 function Forms() {
   return (
@@ -18,12 +24,12 @@ function Forms() {
       <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label>
           <span>Name</span>
-          <Input className="mt-1" placeholder="Jane Doe" />
+          <input className="mt-1" placeholder="Jane Doe" />
         </Label>
 
         <Label className="mt-4">
           <span>Disabled</span>
-          <Input disabled className="mt-1" placeholder="Jane Doe" />
+          <input disabled className="mt-1" placeholder="Jane Doe" />
         </Label>
 
         <div className="mt-4">
@@ -32,15 +38,20 @@ function Forms() {
           <Label>Account Type</Label>
           <div className="mt-2">
             <Label radio>
-              <Input type="radio" value="personal" name="accountType" />
+              <input type="radio" value="personal" name="accountType" />
               <span className="ml-2">Personal</span>
             </Label>
             <Label className="ml-6" radio>
-              <Input type="radio" value="business" name="accountType" />
+              <input type="radio" value="business" name="accountType" />
               <span className="ml-2">Business</span>
             </Label>
             <Label disabled className="ml-6" radio>
-              <Input disabled type="radio" value="disabled" name="accountType" />
+              <input
+                disabled
+                type="radio"
+                value="disabled"
+                name="accountType"
+              />
               <span className="ml-2">Disabled</span>
             </Label>
           </div>
@@ -69,11 +80,15 @@ function Forms() {
 
         <Label className="mt-4">
           <span>Message</span>
-          <Textarea className="mt-1" rows={3} placeholder="Enter some long form content." />
+          <Textarea
+            className="mt-1"
+            rows={3}
+            placeholder="Enter some long form content."
+          />
         </Label>
 
         <Label className="mt-6" check>
-          <Input type="checkbox" />
+          <input type="checkbox" />
           <span className="ml-2">
             I agree to the <span className="underline">privacy policy</span>
           </span>
@@ -85,20 +100,22 @@ function Forms() {
       <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label>
           <span>Invalid input</span>
-          <Input className="mt-1" valid={false} placeholder="Jane Doe" />
+          <input className="mt-1" valid={false} placeholder="Jane Doe" />
           <HelperText valid={false}>Your password is too short.</HelperText>
         </Label>
 
         <Label className="mt-4">
           <span>Valid input</span>
-          <Input className="mt-1" valid={true} placeholder="Jane Doe" />
+          <input className="mt-1" valid={true} placeholder="Jane Doe" />
           <HelperText valid={true}>Your password is strong.</HelperText>
         </Label>
 
         <Label className="mt-4">
           <span>Helper text</span>
-          <Input className="mt-1" placeholder="Jane Doe" />
-          <HelperText>Your password must be at least 6 characters long.</HelperText>
+          <input className="mt-1" placeholder="Jane Doe" />
+          <HelperText>
+            Your password must be at least 6 characters long.
+          </HelperText>
         </Label>
       </div>
 
@@ -166,7 +183,7 @@ function Forms() {
         </Label>
       </div>
     </Layout>
-  )
+  );
 }
 
-export default Forms
+export default Forms;
