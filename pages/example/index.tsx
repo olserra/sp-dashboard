@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { Doughnut, Line } from 'react-chartjs-2'
+import React, { useState, useEffect } from "react";
+import { Doughnut, Line } from "react-chartjs-2";
 
-import CTA from 'example/components/CTA'
-import InfoCard from 'example/components/Cards/InfoCard'
-import ChartCard from 'example/components/Chart/ChartCard'
-import ChartLegend from 'example/components/Chart/ChartLegend'
-import PageTitle from 'example/components/Typography/PageTitle'
-import RoundIcon from 'example/components/RoundIcon'
-import Layout from 'example/containers/Layout'
-import response, { ITableData } from 'utils/demo/tableData'
-import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from 'icons'
+import CTA from "example/components/CTA";
+import InfoCard from "example/components/Cards/InfoCard";
+import ChartCard from "example/components/Chart/ChartCard";
+import ChartLegend from "example/components/Chart/ChartLegend";
+import PageTitle from "example/components/Typography/PageTitle";
+import RoundIcon from "example/components/RoundIcon";
+import Layout from "example/containers/Layout";
+import response, { ITableData } from "utils/demo/tableData";
+import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "icons";
 
 import {
   TableBody,
@@ -22,14 +22,14 @@ import {
   Avatar,
   Badge,
   Pagination,
-} from '@roketid/windmill-react-ui'
+} from "@roketid/windmill-react-ui";
 
 import {
   doughnutOptions,
   lineOptions,
   doughnutLegends,
   lineLegends,
-} from 'utils/demo/chartsData'
+} from "utils/demo/chartsData";
 
 import {
   Chart,
@@ -41,7 +41,7 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js'
+} from "chart.js";
 
 function Dashboard() {
   Chart.register(
@@ -53,35 +53,35 @@ function Dashboard() {
     Title,
     Tooltip,
     Legend
-  )
+  );
 
-  const [page, setPage] = useState(1)
-  const [data, setData] = useState<ITableData[]>([])
+  const [page, setPage] = useState(1);
+  const [data, setData] = useState<ITableData[]>([]);
 
   // pagination setup
-  const resultsPerPage = 10
-  const totalResults = response.length
+  const resultsPerPage = 10;
+  const totalResults = response.length;
 
   // pagination change control
   function onPageChange(p: number) {
-    setPage(p)
+    setPage(p);
   }
 
   // on page change, load new sliced data
   // here you would make another server request for new data
   useEffect(() => {
-    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage))
-  }, [page])
+    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
+  }, [page]);
 
   return (
     <Layout>
-      <PageTitle>Dashboard</PageTitle>
+      <PageTitle>People</PageTitle>
 
       <CTA />
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Total clients" value="6389">
+        <InfoCard title="Total trainings" value="6389">
           {/* @ts-ignore */}
           <RoundIcon
             icon={PeopleIcon}
@@ -91,7 +91,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Account balance" value="$ 46,760.89">
+        <InfoCard title="Hours of training" value="1253">
           {/* @ts-ignore */}
           <RoundIcon
             icon={MoneyIcon}
@@ -101,7 +101,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="New sales" value="376">
+        <InfoCard title="Total assessements" value="376">
           {/* @ts-ignore */}
           <RoundIcon
             icon={CartIcon}
@@ -111,7 +111,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Pending contacts" value="35">
+        <InfoCard title="Pending trainings" value="35">
           {/* @ts-ignore */}
           <RoundIcon
             icon={ChatIcon}
@@ -126,10 +126,10 @@ function Dashboard() {
         <Table>
           <TableHeader>
             <tr>
-              <TableCell>Client</TableCell>
-              <TableCell>Amount</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Date</TableCell>
+              <TableCell>Employee Name</TableCell>
+              <TableCell>Trainings</TableCell>
+              <TableCell>Remaining</TableCell>
+              <TableCell>Due</TableCell>
             </tr>
           </TableHeader>
           <TableBody>
@@ -151,7 +151,7 @@ function Dashboard() {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">$ {user.amount}</span>
+                  <span className="text-sm">{user.amount}</span>
                 </TableCell>
                 <TableCell>
                   <Badge type={user.status}>{user.status}</Badge>
@@ -188,7 +188,7 @@ function Dashboard() {
         </ChartCard>
       </div>
     </Layout>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;
