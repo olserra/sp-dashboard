@@ -1,10 +1,10 @@
-import React from 'react'
-import { Button } from '@roketid/windmill-react-ui'
-import PageTitle from 'example/components/Typography/PageTitle'
-import SectionTitle from 'example/components/Typography/SectionTitle'
-import CTA from 'example/components/CTA'
-import Layout from 'example/containers/Layout'
-import { HeartIcon, EditIcon } from 'icons'
+import React from "react";
+import { Button } from "@roketid/windmill-react-ui";
+import PageTitle from "admin/components/Typography/PageTitle";
+import SectionTitle from "admin/components/Typography/SectionTitle";
+import CTA from "admin/components/CTA";
+import Layout from "admin/containers/Layout";
+import { HeartIcon, EditIcon } from "icons";
 
 function Buttons() {
   return (
@@ -152,7 +152,7 @@ function Buttons() {
         </div>
       </div>
     </Layout>
-  )
+  );
 }
 
-export default Buttons
+export default Buttons;

@@ -5,18 +5,21 @@ module.exports = {
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
-    })
+      use: ["@svgr/webpack"],
+    });
 
-    return config
+    return config;
   },
   async redirects() {
     return [
       {
-        source: '/',
-        destination: '/example/login',
+        source: "/",
+        destination: "/admin/login",
         permanent: false,
       },
-    ]
-  }
-}
+    ];
+  },
+  images: {
+    domains: ["pharmacareonline.qa"], // Add other domains if necessary
+  },
+};

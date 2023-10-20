@@ -27,58 +27,53 @@ export function routeIsActive(pathname: String, route: IRoute): boolean {
 
 const routes: IRoute[] = [
   {
-    path: "/example", // the url
+    path: "/admin", // the url
     icon: "PeopleIcon", // the component being exported from icons/index.js
     name: "People", // name that appear in Sidebar
     exact: true,
   },
   {
-    path: "/example/forms",
+    path: "/admin/create",
     icon: "FormsIcon",
     name: "Create",
   },
   {
-    path: "/example/cards",
+    path: "/admin/cards",
     icon: "CardsIcon",
-    name: "Trainings",
+    name: "Courses",
   },
-  {
-    path: "/example/charts",
-    icon: "ChartsIcon",
-    name: "Charts",
-  },
-  {
-    path: "/example/tables",
-    icon: "TablesIcon",
-    name: "Tables",
-  },
-  {
-    icon: "PagesIcon",
-    name: "Pages",
-    routes: [
-      // submenu
-      {
-        path: "/example/login",
-        name: "Login",
-      },
-      {
-        path: "/example/create-account",
-        name: "Create account",
-      },
-      {
-        path: "/example/forgot-password",
-        name: "Forgot password",
-      },
-      {
-        path: "/example/404",
-        name: "404",
-      },
-      {
-        path: "/example/blank",
-        name: "Blank",
-      },
-    ],
-  },
+  // {
+  //   path: "/admin/charts",
+  //   icon: "ChartsIcon",
+  //   name: "Charts",
+  // },
+  // {
+  //   icon: "PagesIcon",
+  //   name: "Pages",
+  //   routes: [
+  //     // submenu
+  //     {
+  //       path: "/admin/login",
+  //       name: "Login",
+  //     },
+  //     {
+  //       path: "/admin/create-account",
+  //       name: "Create account",
+  //     },
+  //     {
+  //       path: "/admin/forgot-password",
+  //       name: "Forgot password",
+  //     },
+  //     {
+  //       path: "/admin/404",
+  //       name: "404",
+  //     },
+  //     {
+  //       path: "/admin/blank",
+  //       name: "Blank",
+  //     },
+  //   ],
+  // },
 ];
 
 export type { IRoute };

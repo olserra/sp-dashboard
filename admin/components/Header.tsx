@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import SidebarContext from "context/SidebarContext";
 import {
   SearchIcon,
@@ -18,10 +18,19 @@ import {
   DropdownItem,
   WindmillContext,
 } from "@roketid/windmill-react-ui";
+import { signOut, useSession } from "next-auth/react";
 
-function Header() {
+const Header = () => {
+  const { data: session } = useSession();
   const { mode, toggleMode } = useContext(WindmillContext);
   const { toggleSidebar } = useContext(SidebarContext);
+  const [avatarImg, setAvatarImg] = useState("");
+
+  useEffect(() => {
+    if (session?.user?.image) {
+      setAvatarImg(session.user.image);
+    }
+  }, [session]);
 
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -118,7 +127,7 @@ function Header() {
             >
               <Avatar
                 className="align-middle"
-                src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
+                src="https://randomuser.me/api/portraits/men/43.jpg"
                 alt=""
                 aria-hidden="true"
               />
@@ -139,7 +148,7 @@ function Header() {
                 <OutlineCogIcon className="w-4 h-4 mr-3" aria-hidden="true" />
                 <span>Settings</span>
               </DropdownItem>
-              <DropdownItem onClick={() => alert("Log out!")}>
+              <DropdownItem onClick={() => signOut}>
                 <OutlineLogoutIcon
                   className="w-4 h-4 mr-3"
                   aria-hidden="true"
@@ -152,6 +161,6 @@ function Header() {
       </div>
     </header>
   );
-}
+};
 
 export default Header;

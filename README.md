@@ -8,11 +8,11 @@
 See the [Original Project by @estevanmaito](https://github.com/estevanmaito/windmill-dashboard-react/)
 
 With help from other contributors :
+
 - [Typescript version by @neutralboy](https://github.com/neutralboy/windmill-dashboard-react-ts)
 - [Nextjs version by @Aldhanekaa](https://github.com/Aldhanekaa/windmill-dashboard-nextjs)
 
-
-🚀 [See it live](https://windmill-dashboard-nextjs-typescript.vercel.app/example)
+🚀 [See it live](https://windmill-dashboard-nextjs-typescript.vercel.app/admin)
 
 This is not a template. This is a complete application, built on top of React, with all tiny details taken care of so you just need to bring the data to feed it.
 
@@ -42,12 +42,13 @@ All components and containers are saved in folder [example](example)
 ### Routing
 
 Change default redirecting when hit the `/` or `home` in file [next.config.js](next.config.js)
+
 ```js
   async redirects() {
     return [
       {
         source: '/',
-        destination: '/example/login',
+        destination: '/admin/login',
         permanent: false,
       },
     ]
@@ -69,7 +70,7 @@ Item that are used as dropdowns, like the Pages option, don't need a `path`, but
 ```js
 // sidebar.js
 {
-  path: '/example/tables',
+  path: '/admin/tables',
   icon: 'TablesIcon',
   name: 'Tables',
 },
@@ -79,11 +80,11 @@ Item that are used as dropdowns, like the Pages option, don't need a `path`, but
   routes: [
     // submenu
     {
-      path: '/example/login',
+      path: '/admin/login',
       name: 'Login', // <-- these don't have icons
     },
     {
-      path: '/example/create-account',
+      path: '/admin/create-account',
       name: 'Create account',
     },
 ```
@@ -93,6 +94,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Getting Started
 
 First, install dependencies :
+
 ```bash
 npm install
 # or

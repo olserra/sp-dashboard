@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Doughnut, Line } from "react-chartjs-2";
 
-import CTA from "example/components/CTA";
-import InfoCard from "example/components/Cards/InfoCard";
-import ChartCard from "example/components/Chart/ChartCard";
-import ChartLegend from "example/components/Chart/ChartLegend";
-import PageTitle from "example/components/Typography/PageTitle";
-import RoundIcon from "example/components/RoundIcon";
-import Layout from "example/containers/Layout";
+import InfoCard from "admin/components/Cards/InfoCard";
+import ChartCard from "admin/components/Chart/ChartCard";
+import ChartLegend from "admin/components/Chart/ChartLegend";
+import PageTitle from "admin/components/Typography/PageTitle";
+import RoundIcon from "admin/components/RoundIcon";
+import Layout from "admin/containers/Layout";
 import response, { ITableData } from "utils/demo/tableData";
 import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "icons";
 
@@ -76,12 +75,9 @@ function Dashboard() {
   return (
     <Layout>
       <PageTitle>People</PageTitle>
-
-      <CTA />
-
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Total trainings" value="6389">
+        <InfoCard title="Total courses" value="6389">
           {/* @ts-ignore */}
           <RoundIcon
             icon={PeopleIcon}
@@ -91,7 +87,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Hours of training" value="1253">
+        <InfoCard title="Hours on courses" value="1253">
           {/* @ts-ignore */}
           <RoundIcon
             icon={MoneyIcon}
