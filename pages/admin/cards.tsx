@@ -14,10 +14,20 @@ import {
 import PageTitle from "admin/components/Typography/PageTitle";
 import Layout from "admin/containers/Layout";
 import Image from "next/image";
+import TrashIcon from "../../public/assets/img/trash.png";
 
-function Cards() {
+interface Course {
+  course_id: number;
+  course_name: string;
+  course_description: string;
+  course_image: string;
+  badges: string[];
+}
+
+const Cards = () => {
   const [courses, setCourses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<any>(null);
 
   const BrufenImage =
@@ -52,25 +62,22 @@ function Cards() {
     }
   };
 
-  interface Course {
-    course_id: number;
-    course_name: string;
-    course_description: string;
-    course_image: string;
-    badges: string[];
-  }
-
-  const handleDelete = async () => {
+  const confirmDelete = async () => {
     try {
       const courseID = selectedCourse?.course_id; // Access course_id safely using optional chaining
       const clientID = selectedCourse?.client_id; // Replace 'YOUR_CLIENT_ID' with the actual client ID
       await axios.delete(`/delete-course/${courseID}/${clientID}`);
       console.log("Course deleted");
       // Add your code to handle the successful deletion of the course
+      setIsDeleteModalOpen(false);
     } catch (error) {
       console.error("Error deleting course:", error);
       // Add your code to handle errors during the deletion process
     }
+  };
+
+  const handleDelete = async () => {
+    setIsDeleteModalOpen(true);
   };
 
   const mockData = [
@@ -250,22 +257,42 @@ function Cards() {
               />
             </div>
           </ModalBody>
-          <ModalFooter>
-            <Button layout="outline" onClick={handleCancel}>
+          <ModalFooter className="flex-row justify-between">
+            <div
+              className="text-gray-500 cursor-pointer"
+              onClick={() => setIsDeleteModalOpen(true)}
+            >
+              <Image src={TrashIcon} alt="Delete" width={20} height={20} />
+            </div>
+            <div className="space-x-2">
+              <Button layout="outline" onClick={handleCancel}>
+                Cancel
+              </Button>
+              <Button onClick={handleSave}>Save</Button>
+            </div>
+          </ModalFooter>
+        </Modal>
+      )}
+      {isDeleteModalOpen && (
+        <Modal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+        >
+          <ModalHeader>Confirm Deletion</ModalHeader>
+          <ModalBody>Are you sure you want to delete this course?</ModalBody>
+          <ModalFooter className="flex-row justify-between">
+            <Button
+              layout="outline"
+              onClick={() => setIsDeleteModalOpen(false)}
+            >
               Cancel
             </Button>
-            <Button onClick={handleSave}>Save</Button>
-            <div
-              className="absolute bottom-4 left-4 text-gray-500 cursor-pointer"
-              onClick={handleDelete}
-            >
-              <Trash2 size={20} />
-            </div>
+            <Button onClick={confirmDelete}>Delete</Button>
           </ModalFooter>
         </Modal>
       )}
     </Layout>
   );
-}
+};
 
 export default Cards;
