@@ -141,8 +141,10 @@ const Cards = () => {
             onClick={() => handleCardClick(course)}
           >
             <div className="p-4">
-              <p className="mb-4 font-semibold">{course.course_name}</p>
-              <p>{course.course_description}</p>
+              <p className="mb-4 font-semibold dark:text-white">
+                {course.course_name}
+              </p>
+              <p className="dark:text-white">{course.course_description}</p>
               <div className="flex flex-wrap mt-4">
                 {course.badges.map((badge, index) => {
                   const badgeTypes = [
