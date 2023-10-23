@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 import { Input, Label, Textarea } from "@roketid/windmill-react-ui";
@@ -8,6 +8,21 @@ import PageTitle from "admin/components/Typography/PageTitle";
 import Layout from "admin/containers/Layout";
 
 const Create = () => {
+  const [imageUrl, setImageUrl] = useState("");
+  const [labels, setLabels] = useState("");
+
+  const handleImageChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setImageUrl(e.target.value);
+  };
+
+  const handleLabelsChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setLabels(e.target.value);
+  };
+
   const handleClick = async () => {
     const fileInput = document.createElement("input");
     fileInput.type = "file";
@@ -21,14 +36,18 @@ const Create = () => {
       formData.append("file", file);
 
       // Assuming you have a way to get the user ID
-      const userId = 123;
+      // const userId = 123;
 
       try {
-        await axios.post(`/upload-pdf/${userId}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await axios.post(
+          "https://us-central1-flow-b60e6.cloudfunctions.net/upload_pdf/123456",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
         // Handle the success scenario here
       } catch (error) {
         // Handle the error scenario here
@@ -60,6 +79,29 @@ const Create = () => {
             placeholder="Enter some long form content."
           />
         </Label>
+
+        <Label className="mt-4">
+          <span>Image URL</span>
+          <Input
+            className="mt-1"
+            value={imageUrl}
+            onChange={handleImageChange}
+            placeholder="Enter the image URL"
+            crossOrigin={undefined}
+          />
+        </Label>
+
+        <Label className="mt-4">
+          <span>Labels (up to 5, separated by comma)</span>
+          <Input
+            className="mt-1"
+            value={labels}
+            onChange={handleLabelsChange}
+            placeholder="Enter labels separated by comma"
+            crossOrigin={undefined}
+          />
+        </Label>
+
         <div className="pt-4">
           <Button
             className="bg-teal-400 hover:bg-teal-500 focus:outline-none"
