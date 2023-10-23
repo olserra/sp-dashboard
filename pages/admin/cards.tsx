@@ -132,7 +132,7 @@ const Cards = () => {
   return (
     <Layout>
       <PageTitle>Courses</PageTitle>
-      <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-6">
+      <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
         {mockData.map((course) => (
           <Card
             key={course.course_id}

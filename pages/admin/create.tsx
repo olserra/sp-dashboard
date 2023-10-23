@@ -10,6 +10,8 @@ import Layout from "admin/containers/Layout";
 const Create = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [labels, setLabels] = useState("");
+  const [courseName, setCourseName] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleImageChange = (e: {
     target: { value: React.SetStateAction<string> };
@@ -23,6 +25,18 @@ const Create = () => {
     setLabels(e.target.value);
   };
 
+  const handleCourseNameChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setCourseName(e.target.value);
+  };
+
+  const handleDescriptionChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setDescription(e.target.value);
+  };
+
   const handleClick = async () => {
     const fileInput = document.createElement("input");
     fileInput.type = "file";
@@ -34,9 +48,13 @@ const Create = () => {
 
       const formData = new FormData();
       formData.append("file", file);
+      formData.append("imageUrl", imageUrl); // Append the image URL
+      formData.append("labels", labels); // Append the labels
+      formData.append("courseName", courseName); // Append the course name
+      formData.append("description", description); // Append the description
 
       // Assuming you have a way to get the user ID
-      // const userId = 123;
+      const userId = 123;
 
       try {
         await axios.post(
@@ -68,6 +86,7 @@ const Create = () => {
             className="mt-1"
             placeholder="Brufen 400mg"
             crossOrigin={undefined}
+            onChange={handleCourseNameChange}
           />
         </Label>
 
@@ -77,6 +96,7 @@ const Create = () => {
             className="mt-1"
             rows={3}
             placeholder="Enter some long form content."
+            onChange={handleDescriptionChange}
           />
         </Label>
 
