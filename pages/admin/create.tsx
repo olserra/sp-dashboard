@@ -21,7 +21,7 @@ const Create = () => {
       formData.append("file", file);
 
       // Assuming you have a way to get the user ID
-      const userId = "user_id_placeholder";
+      const userId = 123;
 
       try {
         await axios.post(`/upload-pdf/${userId}`, formData, {
