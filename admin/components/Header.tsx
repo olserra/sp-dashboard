@@ -127,7 +127,7 @@ const Header = () => {
             >
               <Avatar
                 className="align-middle"
-                src="https://randomuser.me/api/portraits/men/43.jpg"
+                src={avatarImg}
                 alt=""
                 aria-hidden="true"
               />
