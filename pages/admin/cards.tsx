@@ -38,6 +38,7 @@ const Cards = () => {
   const [selectedCourse, setSelectedCourse] = useState<any>(null);
   const [isCarouselModalOpen, setIsCarouselModalOpen] = useState(false); // State for the carousel modal
   const [carouselContent, setCarouselContent] = useState<Course[]>([]); // State for the carousel content
+  const [quizModalOpen, setQuizModalOpen] = useState(false); // State for the quiz modal
 
   const mockData: Course[] = [
     {
@@ -210,6 +211,7 @@ const Cards = () => {
   const handleTakeQuiz = () => {
     // Logic for closing the carousel modal
     setIsCarouselModalOpen(false);
+    setQuizModalOpen(true);
   };
 
   const handleCancel = () => {
@@ -478,6 +480,44 @@ const Cards = () => {
                 Edit
               </Button>
             </div>
+          </ModalFooter>
+        </Modal>
+      )}
+
+      {quizModalOpen && (
+        <Modal isOpen={quizModalOpen} onClose={() => setQuizModalOpen(false)}>
+          <ModalHeader>
+            {carouselContent[currentIndex].course_name} Quiz
+          </ModalHeader>
+          <ModalBody>
+            {carouselContent[currentIndex].content.quizzes.map(
+              (quiz, index) => (
+                <div key={index} className="mb-4">
+                  <p className="pb-2">{quiz.question}</p>
+                  {quiz.options.map((option, optionIndex) => (
+                    <div key={optionIndex} className="flex items-center mb-2">
+                      <input
+                        type="radio"
+                        id={`option_${index}_${optionIndex}`}
+                        name={`question_${index}`}
+                        value={option}
+                      />
+                      <label
+                        htmlFor={`option_${index}_${optionIndex}`}
+                        className="ml-2"
+                      >
+                        {option}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              )
+            )}
+          </ModalBody>
+          <ModalFooter className="flex-row justify-end">
+            <Button layout="primary" onClick={() => setQuizModalOpen(false)}>
+              Submit
+            </Button>
           </ModalFooter>
         </Modal>
       )}
