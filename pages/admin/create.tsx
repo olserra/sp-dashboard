@@ -8,15 +8,19 @@ import PageTitle from "admin/components/Typography/PageTitle";
 import Layout from "admin/containers/Layout";
 
 const Create = () => {
-  const [imageUrl, setImageUrl] = useState("");
+  const [productImageURL, setProductImageURL] = useState("");
   const [labels, setLabels] = useState("");
   const [courseName, setCourseName] = useState("");
   const [description, setDescription] = useState("");
+  const [targetRole, setTargetRole] = useState("");
+  const [targetCompany, setTargetCompany] = useState("");
+  const [targetIndustry, setTargetIndustry] = useState("");
+  const [product, setProduct] = useState("");
 
   const handleImageChange = (e: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    setImageUrl(e.target.value);
+    setProductImageURL(e.target.value);
   };
 
   const handleLabelsChange = (e: {
@@ -37,6 +41,30 @@ const Create = () => {
     setDescription(e.target.value);
   };
 
+  const handleTargetRoleChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setTargetRole(e.target.value);
+  };
+
+  const handleTargetCompanyChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setTargetCompany(e.target.value);
+  };
+
+  const handleTargetIndustryChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setTargetIndustry(e.target.value);
+  };
+
+  const handleProductChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setProduct(e.target.value);
+  };
+
   const handleClick = async () => {
     const fileInput = document.createElement("input");
     fileInput.type = "file";
@@ -48,10 +76,14 @@ const Create = () => {
 
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("imageUrl", imageUrl); // Append the image URL
+      formData.append("productImageURL", productImageURL); // Append the image URL
       formData.append("labels", labels); // Append the labels
       formData.append("courseName", courseName); // Append the course name
       formData.append("description", description); // Append the description
+      formData.append("targetRole", targetRole); // Append the target role
+      formData.append("targetCompany", targetCompany); // Append the target company
+      formData.append("targetIndustry", targetIndustry); // Append the target industry
+      formData.append("product", product); // Append the product
 
       // Assuming you have a way to get the user ID
       const userId = 123;
@@ -81,7 +113,7 @@ const Create = () => {
       <PageTitle>Create a course</PageTitle>
       <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label>
-          <span>Course name</span>
+          <span>Course name:</span>
           <Input
             className="mt-1"
             placeholder="Brufen 400mg"
@@ -91,7 +123,7 @@ const Create = () => {
         </Label>
 
         <Label className="mt-4">
-          <span>Description</span>
+          <span>Description:</span>
           <Textarea
             className="mt-1"
             rows={3}
@@ -101,23 +133,63 @@ const Create = () => {
         </Label>
 
         <Label className="mt-4">
-          <span>Image URL</span>
-          <Input
-            className="mt-1"
-            value={imageUrl}
-            onChange={handleImageChange}
-            placeholder="Enter the image URL"
-            crossOrigin={undefined}
-          />
-        </Label>
-
-        <Label className="mt-4">
-          <span>Labels (up to 5, separated by comma)</span>
+          <span>Labels (up to 5, separated by comma):</span>
           <Input
             className="mt-1"
             value={labels}
             onChange={handleLabelsChange}
             placeholder="Enter labels separated by comma"
+            crossOrigin={undefined}
+          />
+        </Label>
+
+        <Label className="mt-4">
+          <span>Target Role:</span>
+          <Input
+            className="mt-1"
+            placeholder="Enter the target role"
+            onChange={handleTargetRoleChange}
+            crossOrigin={undefined}
+          />
+        </Label>
+
+        <Label className="mt-4">
+          <span>Target Company:</span>
+          <Input
+            className="mt-1"
+            placeholder="Enter the target company"
+            onChange={handleTargetCompanyChange}
+            crossOrigin={undefined}
+          />
+        </Label>
+
+        <Label className="mt-4">
+          <span>Target Industry:</span>
+          <Input
+            className="mt-1"
+            placeholder="Enter the target industry"
+            onChange={handleTargetIndustryChange}
+            crossOrigin={undefined}
+          />
+        </Label>
+
+        <Label className="mt-4">
+          <span>Product name:</span>
+          <Input
+            className="mt-1"
+            placeholder="Enter the product"
+            onChange={handleProductChange}
+            crossOrigin={undefined}
+          />
+        </Label>
+
+        <Label className="mt-4">
+          <span>Product Image URL:</span>
+          <Input
+            className="mt-1"
+            value={productImageURL}
+            onChange={handleImageChange}
+            placeholder="Enter the image URL"
             crossOrigin={undefined}
           />
         </Label>
