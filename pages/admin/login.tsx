@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ImgSource from "../../public/assets/img/logo-sp.png";
+import GoogleIcon from "../../public/assets/img/google.png";
 
 import { Label, Input, Button } from "@roketid/windmill-react-ui";
+import { signIn } from "next-auth/react";
 
 function LoginPage() {
   return (
@@ -47,6 +49,24 @@ function LoginPage() {
 
               <Link href="/admin" passHref={true}>
                 <Button className="mt-4" block>
+                  Log in
+                </Button>
+              </Link>
+
+              <Link href="/admin" passHref={true}>
+                <Button
+                  onClick={() => signIn("google")}
+                  layout="outline"
+                  className="mt-4"
+                  block
+                >
+                  <Image
+                    src={GoogleIcon}
+                    alt="Google Icon"
+                    height={20}
+                    width={20}
+                    className="mr-2"
+                  />
                   Log in
                 </Button>
               </Link>
