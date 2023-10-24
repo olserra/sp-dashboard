@@ -60,7 +60,7 @@ const Cards = () => {
           {
             title: "Chapter 2",
             content:
-              "If you are taking the over-the-counter product, read all directions on the product package before taking this medication. If your doctor has prescribed this medication, read the Medication Guide provided by your pharmacist before you start taking ibuprofen and each time you get a refill. If you have any questions, ask your doctor or pharmacist. Take this medication by mouth, usually every 4 to 6 hours with a full glass of water (8 ounces/240 milliliters) unless your doctor directs you otherwise. Do not lie down for at least 10 minutes after taking this drug. If you have stomach upset while taking this medication, take it with food, milk, or an antacid. The dosage is based on your medical condition and response to treatment.",
+              "Do not lie down for at least 10 minutes after taking this drug. If you have stomach upset while taking this medication, take it with food, milk, or an antacid. The dosage is based on your medical condition and response to treatment. If you are taking the over-the-counter product, read all directions on the product package before taking this medication. If your doctor has prescribed this medication, read the Medication Guide provided by your pharmacist before you start taking ibuprofen and each time you get a refill.",
           },
           // Add more chapters as needed
         ],
@@ -206,7 +206,7 @@ const Cards = () => {
     setIsModalOpen(false);
   };
 
-  const handleFinish = () => {
+  const handleTakeQuiz = () => {
     // Logic for closing the carousel modal
     setIsCarouselModalOpen(false);
   };
@@ -214,11 +214,6 @@ const Cards = () => {
   const handleCancel = () => {
     setSelectedCourse(null);
     setIsModalOpen(false);
-  };
-
-  const handleShare = () => {
-    const link = window.location.href;
-    navigator.clipboard.writeText(link);
   };
 
   const handleSave = async () => {
@@ -458,8 +453,8 @@ const Cards = () => {
               </Button>
               {currentChapter ===
               carouselContent[currentIndex].content.chapters.length - 1 ? (
-                <Button layout="primary" onClick={handleFinish}>
-                  Finish
+                <Button layout="primary" onClick={handleTakeQuiz}>
+                  Take quiz
                 </Button>
               ) : (
                 <Button
