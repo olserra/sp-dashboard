@@ -22,29 +22,203 @@ interface Course {
   course_description: string;
   course_image: string;
   badges: string[];
+  content: {
+    introduction: string;
+    chapters: { title: string; content: string }[];
+    quizzes: { question: string; options: string[]; answer: string }[];
+  };
 }
 
 const Cards = () => {
-  const [courses, setCourses] = useState([]);
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentChapter, setCurrentChapter] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<any>(null);
-
+  const [isCarouselModalOpen, setIsCarouselModalOpen] = useState(false); // State for the carousel modal
+  const [carouselContent, setCarouselContent] = useState<Course[]>([]); // State for the carousel content
   const BrufenImage =
     "https://pharmacareonline.qa/cdn/shop/products/brufen-syrup-100.png?v=1673683170";
 
-  const handleCardClick = (course: any) => {
-    setSelectedCourse(course);
-    setIsModalOpen(true);
+  const mockData: Course[] = [
+    {
+      course_id: 1,
+      course_name: "Brufen Training",
+      course_description:
+        "Learn about the uses and dosage of Brufen medication.",
+      course_image: BrufenImage,
+      badges: ["Oral", "Daily", "Pharma Industry", "Certification"],
+      content: {
+        introduction:
+          "This course provides a comprehensive overview of Brufen medication.",
+        chapters: [
+          {
+            title: "Chapter 1",
+            content: `If you are taking the over-the-counter product, read all directions on the product package before taking this medication. If your doctor has prescribed this medication, read the Medication Guide provided by your pharmacist before you start taking ibuprofen and each time you get a refill. If you have any questions, ask your doctor or pharmacist. Take this medication by mouth, usually every 4 to 6 hours with a full glass of water (8 ounces/240 milliliters) unless your doctor directs you otherwise. Do not lie down for at least 10 minutes after taking this drug. If you have stomach upset while taking this medication, take it with food, milk, or an antacid. The dosage is based on your medical condition and response to treatment.`,
+          },
+          {
+            title: "Chapter 2",
+            content:
+              "If you are taking the over-the-counter product, read all directions on the product package before taking this medication. If your doctor has prescribed this medication, read the Medication Guide provided by your pharmacist before you start taking ibuprofen and each time you get a refill. If you have any questions, ask your doctor or pharmacist. Take this medication by mouth, usually every 4 to 6 hours with a full glass of water (8 ounces/240 milliliters) unless your doctor directs you otherwise. Do not lie down for at least 10 minutes after taking this drug. If you have stomach upset while taking this medication, take it with food, milk, or an antacid. The dosage is based on your medical condition and response to treatment.",
+          },
+          // Add more chapters as needed
+        ],
+        quizzes: [
+          {
+            question: "What are the common uses of Brufen?",
+            options: [
+              "Pain relief",
+              "Fever reduction",
+              "Inflammation management",
+            ],
+            answer: "Pain relief",
+          },
+          {
+            question: "How often should Brufen be taken?",
+            options: ["Once a day", "Twice a day", "As needed"],
+            answer: "As needed",
+          },
+          // Add more quiz questions as needed
+        ],
+      },
+    },
+    {
+      course_id: 2,
+      course_name: "Benuron Basics",
+      course_description:
+        "Understand the benefits and side effects of Benuron.",
+      course_image: BrufenImage,
+      badges: ["Injection", "Weekly", "Pharma Industry", "Training"],
+      content: {
+        introduction:
+          "Benuron Basics is a foundational course that covers the basics of using Benuron...",
+        chapters: [
+          {
+            title: "Chapter 1",
+            content: "Introduction to Benuron and its applications...",
+          },
+          {
+            title: "Chapter 2",
+            content: "Understanding the potential side effects of Benuron...",
+          },
+          // Add more chapters as needed
+        ],
+        quizzes: [
+          {
+            question: "What is the primary application of Benuron?",
+            options: ["Pain relief", "Allergy management", "Antibiotic"],
+            answer: "Pain relief",
+          },
+          {
+            question: "How frequently should Benuron be administered?",
+            options: ["Weekly", "As needed", "Twice a day"],
+            answer: "As needed",
+          },
+          // Add more quiz questions as needed
+        ],
+      },
+    },
+    {
+      course_id: 3,
+      course_name: "Aspirin Awareness",
+      course_description:
+        "Comprehensive guide to the applications and risks of Aspirin.",
+      course_image: BrufenImage,
+      badges: ["Tablet", "Monthly", "Pharma Industry", "Course Material"],
+      content: {
+        introduction:
+          "Aspirin Awareness is designed to provide a comprehensive understanding of the applications and risks associated with Aspirin...",
+        chapters: [
+          {
+            title: "Chapter 1",
+            content: "Exploring the history and development of Aspirin...",
+          },
+          {
+            title: "Chapter 2",
+            content: "Understanding the potential benefits of Aspirin...",
+          },
+          // Add more chapters as needed
+        ],
+        quizzes: [
+          {
+            question: "What is the primary benefit of Aspirin?",
+            options: ["Pain relief", "Blood thinning", "Antibiotic"],
+            answer: "Blood thinning",
+          },
+          {
+            question: "How frequently is Aspirin recommended for use?",
+            options: ["Daily", "Monthly", "As needed"],
+            answer: "As needed",
+          },
+          // Add more quiz questions as needed
+        ],
+      },
+    },
+    {
+      course_id: 4,
+      course_name: "Paracetamol Proficiency",
+      course_description:
+        "Master the art of prescribing and administering Paracetamol.",
+      course_image: BrufenImage,
+      badges: ["Liquid", "As Needed", "Pharma Industry", "Training"],
+      content: {
+        introduction:
+          "Paracetamol Proficiency provides in-depth training on the proper prescription and administration of Paracetamol...",
+        chapters: [
+          {
+            title: "Chapter 1",
+            content: "Understanding the various forms of Paracetamol...",
+          },
+          {
+            title: "Chapter 2",
+            content:
+              "Dosage instructions and considerations for different patient groups...",
+          },
+          // Add more chapters as needed
+        ],
+        quizzes: [
+          {
+            question: "What is the common form of Paracetamol for children?",
+            options: ["Tablet", "Liquid", "Injection"],
+            answer: "Liquid",
+          },
+          {
+            question:
+              "How should the dosage of Paracetamol be adjusted for elderly patients?",
+            options: ["Increased", "Decreased", "Remain the same"],
+            answer: "Decreased",
+          },
+          // Add more quiz questions as needed
+        ],
+      },
+    },
+    // Add more courses as needed
+  ];
+
+  const handleCardClick = (course: Course) => {
+    // Logic for opening the carousel modal
+    setCarouselContent(mockData); // Assuming mockData is the content for the carousel
+    setIsCarouselModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
+  const handleFinish = () => {
+    // Logic for closing the carousel modal
+    setIsCarouselModalOpen(false);
+  };
+
   const handleCancel = () => {
     setSelectedCourse(null);
     setIsModalOpen(false);
+  };
+
+  const handleShare = () => {
+    const link = window.location.href;
+    navigator.clipboard.writeText(link);
   };
 
   const handleSave = async () => {
@@ -62,7 +236,8 @@ const Cards = () => {
     }
   };
 
-  const confirmDelete = async () => {
+  const handleDelete = async () => {
+    setIsDeleteModalOpen(true);
     try {
       const courseID = selectedCourse?.course_id; // Access course_id safely using optional chaining
       const clientID = selectedCourse?.client_id; // Replace 'YOUR_CLIENT_ID' with the actual client ID
@@ -70,51 +245,21 @@ const Cards = () => {
       console.log("Course deleted");
       // Add your code to handle the successful deletion of the course
       setIsDeleteModalOpen(false);
+      // Fetch the updated list of courses after deletion
+      const response = await axios.get("/get-courses/{client_id}");
+      setCourses(response.data);
+      setSelectedCourse(null); // Reset the selectedCourse state
     } catch (error) {
       console.error("Error deleting course:", error);
       // Add your code to handle errors during the deletion process
     }
   };
 
-  const handleDelete = async () => {
-    setIsDeleteModalOpen(true);
+  const handleEdit = () => {
+    setIsCarouselModalOpen(false); // Close the carousel modal
+    setIsModalOpen(true); // Open the edit modal
+    setSelectedCourse(carouselContent[currentIndex]); // Set the selectedCourse state
   };
-
-  const mockData = [
-    {
-      course_id: 1,
-      course_name: "Brufen Training",
-      course_description:
-        "Learn about the uses and dosage of Brufen medication.",
-      course_image: BrufenImage,
-      badges: ["Oral", "Daily", "Pharma Industry", "Certification"],
-    },
-    {
-      course_id: 2,
-      course_name: "Benuron Basics",
-      course_description:
-        "Understand the benefits and side effects of Benuron.",
-      course_image: BrufenImage,
-      badges: ["Injection", "Weekly", "Pharma Industry", "Training"],
-    },
-    {
-      course_id: 3,
-      course_name: "Aspirin Awareness",
-      course_description:
-        "Comprehensive guide to the applications and risks of Aspirin.",
-      course_image: BrufenImage,
-      badges: ["Tablet", "Monthly", "Pharma Industry", "Course Material"],
-    },
-    {
-      course_id: 4,
-      course_name: "Paracetamol Proficiency",
-      course_description:
-        "Master the art of prescribing and administering Paracetamol.",
-      course_image: BrufenImage,
-      badges: ["Liquid", "As Needed", "Pharma Industry", "Training"],
-    },
-    // Add more courses as needed
-  ];
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -133,11 +278,11 @@ const Cards = () => {
     <Layout>
       <PageTitle>Courses</PageTitle>
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        {mockData.map((course) => (
+        {mockData.map((course: Course) => (
           <Card
             key={course.course_id}
             colored
-            className="grid grid-cols-2 gap-4 text-gray-700 border-teal-400 border-2 cursor-pointer"
+            className="grid grid-cols-2 gap-4 text-gray-700 border-gray-300 border cursor-pointer shadow-md"
             onClick={() => handleCardClick(course)}
           >
             <div className="p-4">
@@ -275,6 +420,72 @@ const Cards = () => {
           </ModalFooter>
         </Modal>
       )}
+      {isCarouselModalOpen && (
+        <Modal
+          isOpen={isCarouselModalOpen}
+          onClose={() => setIsCarouselModalOpen(false)}
+        >
+          <ModalHeader>{carouselContent[currentIndex].course_name}</ModalHeader>
+          <ModalBody>
+            <div>
+              <p className="pb-4">
+                {carouselContent[currentIndex].content.introduction}
+              </p>
+              <h2 className="pb-4">
+                {
+                  carouselContent[currentIndex].content.chapters[currentChapter]
+                    .title
+                }
+              </h2>
+              <p>
+                {
+                  carouselContent[currentIndex].content.chapters[currentChapter]
+                    .content
+                }
+              </p>
+            </div>
+          </ModalBody>
+          <ModalFooter className="flex-row justify-between">
+            <div>
+              <Button
+                layout="outline"
+                onClick={() =>
+                  setCurrentChapter((prev) => Math.max(prev - 1, 0))
+                }
+                className="mr-2"
+              >
+                &lt; Previous
+              </Button>
+              {currentChapter ===
+              carouselContent[currentIndex].content.chapters.length - 1 ? (
+                <Button layout="primary" onClick={handleFinish}>
+                  Finish
+                </Button>
+              ) : (
+                <Button
+                  layout="outline"
+                  onClick={() =>
+                    setCurrentChapter((prev) =>
+                      Math.min(
+                        prev + 1,
+                        carouselContent[currentIndex].content.chapters.length -
+                          1
+                      )
+                    )
+                  }
+                  className="mr-2"
+                >
+                  Next &gt;
+                </Button>
+              )}
+              <Button layout="link" onClick={handleEdit} className="underline">
+                Edit
+              </Button>
+            </div>
+          </ModalFooter>
+        </Modal>
+      )}
+
       {isDeleteModalOpen && (
         <Modal
           isOpen={isDeleteModalOpen}
@@ -289,7 +500,7 @@ const Cards = () => {
             >
               Cancel
             </Button>
-            <Button onClick={confirmDelete}>Delete</Button>
+            <Button onClick={handleDelete}>Delete</Button>
           </ModalFooter>
         </Modal>
       )}

@@ -62,7 +62,7 @@ const Header = () => {
             </div>
             <Input
               className="pl-8 text-gray-700 border w-full py-2 pr-2 rounded-md focus:border-teal-500 focus:outline-none focus:shadow-outline-teal dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700"
-              placeholder="Search for projects"
+              placeholder="Search"
               aria-label="Search"
               crossOrigin={undefined}
             />

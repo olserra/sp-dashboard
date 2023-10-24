@@ -51,20 +51,20 @@ function LoginPage() {
                 </Button>
               </Link>
 
-              <p className="mt-4">
+              <div className="mt-4">
                 <Link href="/admin/forgot-password">
                   <p className="text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline">
                     Forgot your password?
                   </p>
                 </Link>
-              </p>
-              <p className="mt-1">
+              </div>
+              <div className="mt-1">
                 <Link href="/admin/create-account">
                   <p className="text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline">
                     Create account
                   </p>
                 </Link>
-              </p>
+              </div>
             </div>
           </main>
         </div>
