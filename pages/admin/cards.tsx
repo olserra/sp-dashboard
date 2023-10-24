@@ -38,8 +38,6 @@ const Cards = () => {
   const [selectedCourse, setSelectedCourse] = useState<any>(null);
   const [isCarouselModalOpen, setIsCarouselModalOpen] = useState(false); // State for the carousel modal
   const [carouselContent, setCarouselContent] = useState<Course[]>([]); // State for the carousel content
-  const BrufenImage =
-    "https://pharmacareonline.qa/cdn/shop/products/brufen-syrup-100.png?v=1673683170";
 
   const mockData: Course[] = [
     {
@@ -47,7 +45,8 @@ const Cards = () => {
       course_name: "Brufen Training",
       course_description:
         "Learn about the uses and dosage of Brufen medication.",
-      course_image: BrufenImage,
+      course_image:
+        "https://pharmacareonline.qa/cdn/shop/products/brufen-syrup-100.png?v=1673683170",
       badges: ["Oral", "Daily", "Pharma Industry", "Certification"],
       content: {
         introduction:
@@ -88,7 +87,7 @@ const Cards = () => {
       course_name: "Benuron Basics",
       course_description:
         "Understand the benefits and side effects of Benuron.",
-      course_image: BrufenImage,
+      course_image: "https://www.farmaciasilveira.com/uploads/8168526.png",
       badges: ["Injection", "Weekly", "Pharma Industry", "Training"],
       content: {
         introduction:
@@ -124,7 +123,8 @@ const Cards = () => {
       course_name: "Aspirin Awareness",
       course_description:
         "Comprehensive guide to the applications and risks of Aspirin.",
-      course_image: BrufenImage,
+      course_image:
+        "https://assets.stickpng.com/images/59bf7f667a216d0b052f12d3.png",
       badges: ["Tablet", "Monthly", "Pharma Industry", "Course Material"],
       content: {
         introduction:
@@ -160,7 +160,8 @@ const Cards = () => {
       course_name: "Paracetamol Proficiency",
       course_description:
         "Master the art of prescribing and administering Paracetamol.",
-      course_image: BrufenImage,
+      course_image:
+        "https://santaluciadrogaria.vtexassets.com/arquivos/ids/164573/7896112149705.png?v=637638166257400000",
       badges: ["Liquid", "As Needed", "Pharma Industry", "Training"],
       content: {
         introduction:

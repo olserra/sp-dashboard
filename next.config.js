@@ -20,6 +20,11 @@ module.exports = {
     ];
   },
   images: {
-    domains: ["pharmacareonline.qa"], // Add other domains if necessary
+    domains: [
+      "pharmacareonline.qa",
+      "www.farmaciasilveira.com",
+      "assets.stickpng.com",
+      "santaluciadrogaria.vtexassets.com",
+    ], // Add other domains if necessary
   },
 };
