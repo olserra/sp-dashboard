@@ -335,7 +335,7 @@ const Courses = () => {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center text-sm">
-                    {course.questions}
+                    {course.participants}
                   </div>
                 </TableCell>
                 <TableCell>
@@ -375,7 +375,7 @@ const Courses = () => {
                 Name
               </Label>
               <Input
-                value={(selectedCourse as any).course_name}
+                value={(selectedCourse as any).name}
                 onChange={(e) =>
                   setSelectedCourse({
                     ...(selectedCourse as any),
@@ -427,7 +427,7 @@ const Courses = () => {
           isOpen={isCarouselModalOpen}
           onClose={() => setIsCarouselModalOpen(false)}
         >
-          <ModalHeader>{carouselContent[currentIndex].course_name}</ModalHeader>
+          <ModalHeader>{carouselContent[currentIndex].name}</ModalHeader>
           <ModalBody>
             <div>
               <p className="pb-4">

@@ -16,20 +16,7 @@ const Create = () => {
   const [targetRole, setTargetRole] = useState("");
   const [targetCompany, setTargetCompany] = useState("");
   const [targetIndustry, setTargetIndustry] = useState("");
-  const [product, setProduct] = useState("");
   const { data: session, status } = useSession();
-
-  const handleImageChange = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setProductImageURL(e.target.value);
-  };
-
-  const handleLabelsChange = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setLabels(e.target.value);
-  };
 
   const handleCourseNameChange = (e: {
     target: { value: React.SetStateAction<string> };
@@ -61,12 +48,6 @@ const Create = () => {
     setTargetIndustry(e.target.value);
   };
 
-  const handleProductChange = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setProduct(e.target.value);
-  };
-
   const handleClick = async () => {
     const fileInput = document.createElement("input");
     fileInput.type = "file";
@@ -78,14 +59,11 @@ const Create = () => {
 
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("productImageURL", productImageURL); // Append the image URL
-      formData.append("labels", labels); // Append the labels
       formData.append("courseName", courseName); // Append the course name
       formData.append("category", category); // Append the description
       formData.append("targetRole", targetRole); // Append the target role
       formData.append("targetCompany", targetCompany); // Append the target company
       formData.append("targetIndustry", targetIndustry); // Append the target industry
-      formData.append("product", product); // Append the product
 
       // Assuming you have a way to get the user ID
       const userId = session?.user?.email;
@@ -128,20 +106,9 @@ const Create = () => {
           <span>Category:</span>
           <Input
             className="mt-1"
-            placeholder="Brufen 400mg"
+            placeholder="Pain Relief"
             crossOrigin={undefined}
             onChange={handleCategoryChange}
-          />
-        </Label>
-
-        <Label className="mt-4">
-          <span>Labels (up to 5, separated by comma):</span>
-          <Input
-            className="mt-1"
-            value={labels}
-            onChange={handleLabelsChange}
-            placeholder="Enter labels separated by comma"
-            crossOrigin={undefined}
           />
         </Label>
 
@@ -171,27 +138,6 @@ const Create = () => {
             className="mt-1"
             placeholder="Enter the target industry"
             onChange={handleTargetIndustryChange}
-            crossOrigin={undefined}
-          />
-        </Label>
-
-        <Label className="mt-4">
-          <span>Product name:</span>
-          <Input
-            className="mt-1"
-            placeholder="Enter the product"
-            onChange={handleProductChange}
-            crossOrigin={undefined}
-          />
-        </Label>
-
-        <Label className="mt-4">
-          <span>Product Image URL:</span>
-          <Input
-            className="mt-1"
-            value={productImageURL}
-            onChange={handleImageChange}
-            placeholder="Enter the image URL"
             crossOrigin={undefined}
           />
         </Label>

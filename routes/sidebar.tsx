@@ -38,7 +38,7 @@ const routes: IRoute[] = [
     name: "Create",
   },
   {
-    path: "/admin/cards",
+    path: "/admin/courses",
     icon: "CardsIcon",
     name: "Courses",
   },

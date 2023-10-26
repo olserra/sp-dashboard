@@ -24,7 +24,7 @@ const options = {
   secret: process.env.JWT_SECRET,
   callbacks: {
     async redirect() {
-      return "/admin/cards";
+      return "/admin/courses";
     },
     session: async ({ session, token, user }: any) => {
       session.user.id = user.id as string;
