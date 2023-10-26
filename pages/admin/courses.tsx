@@ -1,27 +1,38 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
-  Card,
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
   Button,
-  Textarea,
   Input,
-  Badge,
+  Pagination,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TableHeader,
+  TableRow,
+  Select,
+  Label,
 } from "@roketid/windmill-react-ui";
 import PageTitle from "admin/components/Typography/PageTitle";
 import Layout from "admin/containers/Layout";
 import Image from "next/image";
 import TrashIcon from "../../public/assets/img/trash.png";
+import response, { ITableData } from "utils/demo/tableData";
 
 interface Course {
-  course_id: number;
-  course_name: string;
-  course_description: string;
-  course_image: string;
-  badges: string[];
+  id: number;
+  name: string;
+  category: string;
+  questions: number;
+  participants: number;
+  averageTime: number;
+  status: string;
+  createdDate: string;
   content: {
     introduction: string;
     chapters: { title: string; content: string }[];
@@ -29,7 +40,7 @@ interface Course {
   };
 }
 
-const Cards = () => {
+const Courses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentChapter, setCurrentChapter] = useState(0);
@@ -39,16 +50,34 @@ const Cards = () => {
   const [isCarouselModalOpen, setIsCarouselModalOpen] = useState(false); // State for the carousel modal
   const [carouselContent, setCarouselContent] = useState<Course[]>([]); // State for the carousel content
   const [quizModalOpen, setQuizModalOpen] = useState(false); // State for the quiz modal
+  const [page, setPage] = useState(1);
+  const [data, setData] = useState<ITableData[]>([]);
+
+  // pagination setup
+  const resultsPerPage = 10;
+  const totalResults = response.length;
+
+  // pagination change control
+  function onPageChange(p: number) {
+    setPage(p);
+  }
+
+  // on page change, load new sliced data
+  // here you would make another server request for new data
+  useEffect(() => {
+    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
+  }, [page]);
 
   const mockData: Course[] = [
     {
-      course_id: 1,
-      course_name: "Brufen Training",
-      course_description:
-        "Learn about the uses and dosage of Brufen medication.",
-      course_image:
-        "https://pharmacareonline.qa/cdn/shop/products/brufen-syrup-100.png?v=1673683170",
-      badges: ["Oral", "Daily", "Pharma Industry", "Certification"],
+      id: 1,
+      name: "Brufen Training",
+      category: "Pain relief",
+      questions: 2,
+      participants: 120,
+      averageTime: 35,
+      status: "Active",
+      createdDate: "2023-10-25",
       content: {
         introduction:
           "This course provides a comprehensive overview of Brufen medication.",
@@ -62,7 +91,6 @@ const Cards = () => {
             content:
               "Do not lie down for at least 10 minutes after taking this drug. If you have stomach upset while taking this medication, take it with food, milk, or an antacid. The dosage is based on your medical condition and response to treatment. If you are taking the over-the-counter product, read all directions on the product package before taking this medication. If your doctor has prescribed this medication, read the Medication Guide provided by your pharmacist before you start taking ibuprofen and each time you get a refill.",
           },
-          // Add more chapters as needed
         ],
         quizzes: [
           {
@@ -79,17 +107,18 @@ const Cards = () => {
             options: ["Once a day", "Twice a day", "As needed"],
             answer: "As needed",
           },
-          // Add more quiz questions as needed
         ],
       },
     },
     {
-      course_id: 2,
-      course_name: "Benuron Basics",
-      course_description:
-        "Understand the benefits and side effects of Benuron.",
-      course_image: "https://www.farmaciasilveira.com/uploads/8168526.png",
-      badges: ["Injection", "Weekly", "Pharma Industry", "Training"],
+      id: 2,
+      name: "Benuron Basics",
+      category: "Gastro",
+      questions: 2,
+      participants: 90,
+      averageTime: 40,
+      status: "Active",
+      createdDate: "2023-10-24",
       content: {
         introduction:
           "Benuron Basics is a foundational course that covers the basics of using Benuron...",
@@ -102,7 +131,6 @@ const Cards = () => {
             title: "Chapter 2",
             content: "Understanding the potential side effects of Benuron...",
           },
-          // Add more chapters as needed
         ],
         quizzes: [
           {
@@ -115,18 +143,18 @@ const Cards = () => {
             options: ["Weekly", "As needed", "Twice a day"],
             answer: "As needed",
           },
-          // Add more quiz questions as needed
         ],
       },
     },
     {
-      course_id: 3,
-      course_name: "Aspirin Awareness",
-      course_description:
-        "Comprehensive guide to the applications and risks of Aspirin.",
-      course_image:
-        "https://assets.stickpng.com/images/59bf7f667a216d0b052f12d3.png",
-      badges: ["Tablet", "Monthly", "Pharma Industry", "Course Material"],
+      id: 3,
+      name: "Aspirin Awareness",
+      category: "Nutrition",
+      questions: 2,
+      participants: 150,
+      averageTime: 30,
+      status: "Active",
+      createdDate: "2023-10-23",
       content: {
         introduction:
           "Aspirin Awareness is designed to provide a comprehensive understanding of the applications and risks associated with Aspirin...",
@@ -139,7 +167,6 @@ const Cards = () => {
             title: "Chapter 2",
             content: "Understanding the potential benefits of Aspirin...",
           },
-          // Add more chapters as needed
         ],
         quizzes: [
           {
@@ -152,18 +179,18 @@ const Cards = () => {
             options: ["Daily", "Monthly", "As needed"],
             answer: "As needed",
           },
-          // Add more quiz questions as needed
         ],
       },
     },
     {
-      course_id: 4,
-      course_name: "Paracetamol Proficiency",
-      course_description:
-        "Master the art of prescribing and administering Paracetamol.",
-      course_image:
-        "https://santaluciadrogaria.vtexassets.com/arquivos/ids/164573/7896112149705.png?v=637638166257400000",
-      badges: ["Liquid", "As Needed", "Pharma Industry", "Training"],
+      id: 4,
+      name: "Paracetamol Proficiency",
+      category: "Medical",
+      questions: 2,
+      participants: 100,
+      averageTime: 45,
+      status: "Active",
+      createdDate: "2023-10-22",
       content: {
         introduction:
           "Paracetamol Proficiency provides in-depth training on the proper prescription and administration of Paracetamol...",
@@ -177,7 +204,6 @@ const Cards = () => {
             content:
               "Dosage instructions and considerations for different patient groups...",
           },
-          // Add more chapters as needed
         ],
         quizzes: [
           {
@@ -191,14 +217,13 @@ const Cards = () => {
             options: ["Increased", "Decreased", "Remain the same"],
             answer: "Decreased",
           },
-          // Add more quiz questions as needed
         ],
       },
     },
     // Add more courses as needed
   ];
 
-  const handleCardClick = (course: Course) => {
+  const handleCourseClick = (course: Course) => {
     // Logic for opening the carousel modal
     setCarouselContent(mockData); // Assuming mockData is the content for the carousel
     setIsCarouselModalOpen(true);
@@ -275,71 +300,86 @@ const Cards = () => {
   return (
     <Layout>
       <PageTitle>Courses</PageTitle>
-      <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        {mockData.map((course: Course) => (
-          <Card
-            key={course.course_id}
-            colored
-            className="grid grid-cols-2 gap-4 text-gray-700 border-gray-300 border cursor-pointer shadow-md"
-            onClick={() => handleCardClick(course)}
-          >
-            <div className="p-4">
-              <p className="mb-4 font-semibold dark:text-white">
-                {course.course_name}
-              </p>
-              <p className="dark:text-white">{course.course_description}</p>
-              <div className="flex flex-wrap mt-4">
-                {course.badges.map((badge, index) => {
-                  const badgeTypes = [
-                    "primary",
-                    "neutral",
-                    "success",
-                    "danger",
-                    "warning",
-                  ];
-                  const badgeType = badgeTypes[index % badgeTypes.length] as
-                    | "primary"
-                    | "neutral"
-                    | "success"
-                    | "danger"
-                    | "warning";
-                  return (
-                    <Badge
-                      type={badgeType}
-                      key={badge}
-                      className="min-w-max mr-2 mb-2"
-                    >
-                      {badge}
-                    </Badge>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="flex justify-center items-center">
-              <Image
-                src={course.course_image}
-                alt="Course image"
-                width={100}
-                height={100}
-              />
-            </div>
-          </Card>
-        ))}
-      </div>
+      <TableContainer>
+        <Table>
+          <TableHeader>
+            <tr>
+              <TableCell>Course Name</TableCell>
+              <TableCell>Category</TableCell>
+              <TableCell>Questions</TableCell>
+              <TableCell>Participants</TableCell>
+              <TableCell>Avg. time (h)</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Created Date</TableCell>
+            </tr>
+          </TableHeader>
+          <TableBody>
+            {mockData.map((course, i) => (
+              <TableRow
+                key={i}
+                onClick={() => handleCourseClick(course)}
+                className="cursor-pointer"
+              >
+                <TableCell>
+                  <div className="flex items-center text-sm">{course.name}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center text-sm">
+                    {course.category}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center text-sm">
+                    {course.questions}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center text-sm">
+                    {course.questions}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center text-sm">
+                    {course.averageTime}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center text-sm">
+                    {course.status}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center text-sm">
+                    {course.createdDate}
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <TableFooter>
+          <Pagination
+            totalResults={totalResults}
+            resultsPerPage={resultsPerPage}
+            label="Table navigation"
+            onChange={onPageChange}
+          />
+        </TableFooter>
+      </TableContainer>
 
       {isModalOpen && selectedCourse && (
         <Modal isOpen={isModalOpen} onClose={closeModal}>
-          <ModalHeader>
+          <ModalBody>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
+              <Label className="block text-gray-700 text-sm font-bold mb-2">
                 Name
-              </label>
+              </Label>
               <Input
                 value={(selectedCourse as any).course_name}
                 onChange={(e) =>
                   setSelectedCourse({
                     ...(selectedCourse as any),
-                    course_name: e.target.value,
+                    name: e.target.value,
                   })
                 }
                 className="w-full px-3 py-2 placeholder-gray-300 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
@@ -347,57 +387,21 @@ const Cards = () => {
                 crossOrigin={undefined}
               />
             </div>
-          </ModalHeader>
-          <ModalBody>
+
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Description
-              </label>
-              <Textarea
-                value={(selectedCourse as any).course_description}
+              <Label className="block text-gray-700 text-sm font-bold mb-2">
+                Category
+              </Label>
+              <Input
+                value={(selectedCourse as any).category}
                 onChange={(e) =>
                   setSelectedCourse({
                     ...(selectedCourse as any),
-                    course_description: e.target.value,
+                    category: e.target.value,
                   })
                 }
-                className="w-full h-24 px-3 py-2 placeholder-gray-300 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+                className="w-full px-3 py-2 placeholder-gray-300 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                 placeholder="Enter course description"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Image URL
-              </label>
-              <Input
-                value={(selectedCourse as any).course_image}
-                onChange={(e) =>
-                  setSelectedCourse({
-                    ...(selectedCourse as any),
-                    course_image: e.target.value,
-                  })
-                }
-                className="w-full px-3 py-2 placeholder-gray-300 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Enter image URL"
-                crossOrigin={undefined}
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Badges (Up to 5 words separated by commas)
-              </label>
-              <Input
-                value={(selectedCourse as any).badges.join(", ")}
-                onChange={(e) =>
-                  setSelectedCourse({
-                    ...(selectedCourse as any),
-                    badges: e.target.value
-                      .split(",")
-                      .map((badge) => badge.trim()),
-                  })
-                }
-                className="w-full px-3 py-2 placeholder-gray-300 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Enter badges"
                 crossOrigin={undefined}
               />
             </div>
@@ -486,9 +490,7 @@ const Cards = () => {
 
       {quizModalOpen && (
         <Modal isOpen={quizModalOpen} onClose={() => setQuizModalOpen(false)}>
-          <ModalHeader>
-            {carouselContent[currentIndex].course_name} Quiz
-          </ModalHeader>
+          <ModalHeader>{carouselContent[currentIndex].name} Quiz</ModalHeader>
           <ModalBody>
             {carouselContent[currentIndex].content.quizzes.map(
               (quiz, index) => (
@@ -544,4 +546,4 @@ const Cards = () => {
   );
 };
 
-export default Cards;
+export default Courses;

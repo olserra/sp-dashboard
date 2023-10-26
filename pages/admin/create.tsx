@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { Input, Label, Textarea } from "@roketid/windmill-react-ui";
 import { Button } from "@roketid/windmill-react-ui";
 import PageTitle from "admin/components/Typography/PageTitle";
+import { useSession } from "next-auth/react";
 
 import Layout from "admin/containers/Layout";
 
@@ -11,11 +12,12 @@ const Create = () => {
   const [productImageURL, setProductImageURL] = useState("");
   const [labels, setLabels] = useState("");
   const [courseName, setCourseName] = useState("");
-  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
   const [targetRole, setTargetRole] = useState("");
   const [targetCompany, setTargetCompany] = useState("");
   const [targetIndustry, setTargetIndustry] = useState("");
   const [product, setProduct] = useState("");
+  const { data: session, status } = useSession();
 
   const handleImageChange = (e: {
     target: { value: React.SetStateAction<string> };
@@ -35,10 +37,10 @@ const Create = () => {
     setCourseName(e.target.value);
   };
 
-  const handleDescriptionChange = (e: {
+  const handleCategoryChange = (e: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    setDescription(e.target.value);
+    setCategory(e.target.value);
   };
 
   const handleTargetRoleChange = (e: {
@@ -79,18 +81,18 @@ const Create = () => {
       formData.append("productImageURL", productImageURL); // Append the image URL
       formData.append("labels", labels); // Append the labels
       formData.append("courseName", courseName); // Append the course name
-      formData.append("description", description); // Append the description
+      formData.append("category", category); // Append the description
       formData.append("targetRole", targetRole); // Append the target role
       formData.append("targetCompany", targetCompany); // Append the target company
       formData.append("targetIndustry", targetIndustry); // Append the target industry
       formData.append("product", product); // Append the product
 
       // Assuming you have a way to get the user ID
-      const userId = 123;
+      const userId = session?.user?.email;
 
       try {
         await axios.post(
-          "https://us-central1-flow-b60e6.cloudfunctions.net/upload_pdf/123456",
+          `https://us-central1-flow-b60e6.cloudfunctions.net/upload_pdf/${userId}`,
           formData,
           {
             headers: {
@@ -123,12 +125,12 @@ const Create = () => {
         </Label>
 
         <Label className="mt-4">
-          <span>Description:</span>
-          <Textarea
+          <span>Category:</span>
+          <Input
             className="mt-1"
-            rows={3}
-            placeholder="Enter some long form content."
-            onChange={handleDescriptionChange}
+            placeholder="Brufen 400mg"
+            crossOrigin={undefined}
+            onChange={handleCategoryChange}
           />
         </Label>
 

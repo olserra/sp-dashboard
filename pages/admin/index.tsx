@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Doughnut, Line } from "react-chartjs-2";
-
 import InfoCard from "admin/components/Cards/InfoCard";
-import ChartCard from "admin/components/Chart/ChartCard";
-import ChartLegend from "admin/components/Chart/ChartLegend";
 import PageTitle from "admin/components/Typography/PageTitle";
 import RoundIcon from "admin/components/RoundIcon";
 import Layout from "admin/containers/Layout";
@@ -22,13 +18,6 @@ import {
   Badge,
   Pagination,
 } from "@roketid/windmill-react-ui";
-
-import {
-  doughnutOptions,
-  lineOptions,
-  doughnutLegends,
-  lineLegends,
-} from "utils/demo/chartsData";
 
 import {
   Chart,
