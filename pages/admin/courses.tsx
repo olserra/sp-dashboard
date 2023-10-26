@@ -405,6 +405,23 @@ const Courses = () => {
                 crossOrigin={undefined}
               />
             </div>
+            <div className="mb-4">
+              <Label className="block text-gray-700 text-sm font-bold mb-2">
+                <span>Status</span>
+              </Label>
+              <Select
+                onChange={(e) =>
+                  setSelectedCourse({
+                    ...(selectedCourse as any),
+                    status: e.target.value,
+                  })
+                }
+                className="mt-1"
+              >
+                <option>Active</option>
+                <option>Inactive</option>
+              </Select>
+            </div>
           </ModalBody>
           <ModalFooter className="flex-row justify-between">
             <div
